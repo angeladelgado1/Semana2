@@ -1,9 +1,8 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#include "SDL/SDL.h"
-#include "SDL/SDL_image.h"
-#include "SDL/SDL_ttf.h"
+#include "SDL.h"
+#include "SDL_image.h"
 #include <string>
 
 class Enemy
@@ -19,6 +18,7 @@ public:
 
     Enemy(SDL_Surface *screen);
     void logic();
+    void logic2();
     void render();
     void jump();
     virtual ~Enemy();
