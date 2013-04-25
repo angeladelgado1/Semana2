@@ -1,5 +1,7 @@
 #include "Enemy.h"
 
+#include "Enemy.h"
+
 Enemy::Enemy(SDL_Surface *screen)
 {
     this->screen = screen;
@@ -24,6 +26,13 @@ Enemy::~Enemy()
 void Enemy::logic()
 {
     x-=10;
+    if(x<-100)
+        x=1000;
+}
+
+void Enemy::logic2()
+{
+    x-=15;
     if(x<-100)
         x=1000;
 }
