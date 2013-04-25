@@ -2,13 +2,13 @@
 and may not be redistributed without written permission.*/
 
 //The headers
-#include "SDL/SDL.h"
-#include "SDL/SDL_image.h"
-#include "SDL/SDL_ttf.h"
+#include "SDL.h"
+#include "SDL_image.h"
 #include "Background.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "Timer.h"
+#include "Llama.h"
 #include <string>
 
 //Screen attributes
@@ -17,7 +17,9 @@ const int SCREEN_HEIGHT = 500;
 const int SCREEN_BPP = 32;
 
 SDL_Surface *screen = NULL;
+SDL_Rect offset;
 Timer* update;
+
 
 bool init()
 {
@@ -54,11 +56,15 @@ int main( int argc, char* args[] )
     init();
     update=new Timer();
     update->start();
+
     SDL_Surface * game_over = IMG_Load( "game_over.png" );
+
 
     Background background(screen);
     Player player(screen);
     Enemy enemy(screen);
+    Enemy enemy2(screen);
+    Llama Llama(screen);
 
     SDL_Event event;
     //Quit flag
@@ -89,19 +95,41 @@ int main( int argc, char* args[] )
         background.logic();
         player.logic();
         enemy.logic();
+        enemy2.logic2();
+        Llama.logic();
 
         if(player.x-enemy.x<50
            && player.x-enemy.x>-50
            && player.y-enemy.y<50
            && player.y-enemy.y>-50
-           )
+            or player.x-Llama.x<50
+           && player.x-Llama.x>-50
+           && player.y-Llama.y<50
+           && player.y-Llama.y>-50)
         {
-           break;
+            player.perder();
+
+           //break;
+        }
+
+        if(player.x-enemy2.x<50
+           && player.x-enemy2.x>-50
+           && player.y-enemy2.y<50
+           && player.y-enemy2.y>-50
+           or player.x-Llama.x<50
+           && player.x-Llama.x>-50
+           && player.y-Llama.y<50
+           && player.y-Llama.y>-50)
+        {
+           player.perder();
+          //break;
         }
 
         background.render();
         player.render();
         enemy.render();
+        enemy2.render();
+        Llama.render();
 
         frameCap();
 
@@ -135,9 +163,10 @@ int main( int argc, char* args[] )
             }
         }
 
-        SDL_Rect offset;
+        //SDL_Rect offset;
         offset.x = 0;
         offset.y = 0;
+
 
         SDL_BlitSurface( game_over, NULL, screen, &offset );
 
