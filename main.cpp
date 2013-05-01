@@ -81,7 +81,12 @@ int main( int argc, char* args[] )
                 switch( event.key.keysym.sym )
                 {
                     case SDLK_ESCAPE: quit = true; break;
-                    case SDLK_UP: player.jump(); break;
+                    case SDLK_UP:
+                        if (! player.isJumping){
+                            player.jump(); break;
+                        }
+
+
                 }
             }
             //If the user has Xed out the window
@@ -108,8 +113,6 @@ int main( int argc, char* args[] )
            && player.y-Llama.y>-50)
         {
             player.perder();
-
-           //break;
         }
 
         if(player.x-enemy2.x<50
@@ -122,9 +125,10 @@ int main( int argc, char* args[] )
            && player.y-Llama.y>-50)
         {
            player.perder();
-          //break;
         }
 
+        if (player.murio)
+                break;
         background.render();
         player.render();
         enemy.render();

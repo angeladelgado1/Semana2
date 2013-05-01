@@ -18,6 +18,7 @@ Player::Player(SDL_Surface *screen)
     this->acceleration=2;
     this->velocity=0;
     this->current_frame=0;
+    this->isJumping = false;
 }
 
 Player::~Player()
@@ -56,6 +57,7 @@ void Player::perder()
 {
 
     this->current_frame = 5;
+
 }
 
 void Player::render()
@@ -68,14 +70,23 @@ void Player::render()
    SDL_BlitSurface( images[current_frame], NULL, screen, &offset );
 
 
-    if (current_frame >= 5 && current_frame < 10)
+    if (current_frame >= 5)
         this->current_frame++;
-    else if (current_frame == 4 && this->velocity<0){
+    else if ( (current_frame == 4 && this->velocity<0)
+            ||(current_frame == 4 && this->y<372)){
         this->current_frame--;
-        this->velocity++;
+        this->isJumping = true;
     }
-    else if(current_frame>=3)
-            current_frame=0;
+    else if(current_frame>=3){
+        current_frame=0;
+        this->isJumping = false;
+    }
+
 
    current_frame++;
+   if (current_frame >=10){
+        current_frame =9;
+        this->murio = true;
+   }
+
 }

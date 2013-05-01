@@ -1,7 +1,5 @@
 #include "Enemy.h"
 
-#include "Enemy.h"
-
 Enemy::Enemy(SDL_Surface *screen)
 {
     this->screen = screen;

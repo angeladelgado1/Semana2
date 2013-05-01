@@ -1,9 +1,8 @@
 #ifndef BACKGROUND_H
 #define BACKGROUND_H
 
-#include "SDL/SDL.h"
-#include "SDL/SDL_image.h"
-#include "SDL/SDL_ttf.h"
+#include "SDL.h"
+#include "SDL_image.h"
 #include <string>
 
 class Background
